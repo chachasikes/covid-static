@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "move": "node src/move.js",
-    "updateSitemap": "node src/updateSitemap.js"
+    "updateSitemap": "node src/updateSitemap.js",
+    "history:pdf": "echo 'Date, Filename, Author, Github URL, Direct Download URL' > ./history/covid-static-pdf-history.csv && git ls-files '*.pdf' '*.PDF' -z  | xargs -0 -L1 -I'{}' git log --date=short --format='%ad, {}, %an, https://github.com/cagov/covid-static/blob/%H/{}, https://github.com/cagov/covid-static/raw/%H/{}' -- '{}' >> ./history/covid-static-pdf-history.csv",
+    "pdf-extract:markdown": "node ./src/extract-pdf-markdown.js"
   },
   "repository": {
     "type": "git",
@@ -17,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/cagov/covid-static/issues"
   },
-  "homepage": "https://github.com/cagov/covid-static#readme"
+  "homepage": "https://github.com/cagov/covid-static#readme",
+  "devDependencies": {
+    "moment": "^2.29.1",
+    "pdf2json": "^1.2.0"
+  }
 }
